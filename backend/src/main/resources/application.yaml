@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: stock-exchange-system
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/stock_db
+    username: stock_user
+    password: stock_password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+    open-in-view: false
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG

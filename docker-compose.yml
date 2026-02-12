@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # 1. 메인 DB (PostgreSQL)
+  postgres:
+    image: postgres:15-alpine
+    container_name: stock-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: stock_db
+      POSTGRES_USER: stock_user
+      POSTGRES_PASSWORD: stock_password
+      TZ: Asia/Seoul
+    volumes:
+      - ./db_data:/var/lib/postgresql/data # 데이터 영구 저장
+    restart: always
+
+  # 2. 메모리 DB (Redis)
+  redis:
+    image: redis:7-alpine
+    container_name: stock-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes # AOF 활성화 (데이터 지속성)
+    volumes:
+      - ./redis_data:/data
+    restart: always
